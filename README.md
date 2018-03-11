@@ -2,6 +2,7 @@
 
 Réalisé par HAMAYON VOISIN Valentin, PICHON Léo, MEGIA Antonin, GUTMAN Chloé et GUEURET Élodie.
 
+**ATTENTION: Le jeu a principalement été testé sous Linux, si un quelconque bug est rencontré sous window, merci de le faire remarquer en ouvrant une issue sur le dépot.**
 
 ## Sommaire
  - [Description du projet](#description)
@@ -14,7 +15,6 @@ Le but du jeu est d'être le dernier joueur en vie sur la carte.
 Le gagant est donc le dernier joueur en vie, ou sinon, en cas ou plusieurs joueur seraient encore en vie a la fin des 4 min, le gagnant sera celui avec le plus de point.
 Pour cela chaque joueur doit éliminer les autres en posant des bombes sur la carte.
 Notre jeu ce joueur en fonction du temps, et non en fonction du nombre de tours. Les IA devrons donc jouer en même temps.
-
 
 ### Les regles
 
