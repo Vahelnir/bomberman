@@ -44,12 +44,12 @@ void Game::createWindow() {
 
 void Game::loop() {
 
-    Shader shader_program("shaders/vertex.vert", "shaders/fragment.frag");
+    Shader shader_program("../shaders/vertex.vert", "../shaders/fragment.frag");
 
-    Texture ground_texture("images/ground.jpg");
-    Texture wall_texture("images/wall.jpg");
-    Texture breakable_wall_texture("images/breakable_wall.jpg");
-    Texture player_ninegag("images/knuckle.png", true);
+    Texture ground_texture("../images/ground.jpg");
+    Texture wall_texture("../images/wall.jpg");
+    Texture breakable_wall_texture("../images/breakable_wall.jpg");
+    Texture player_ninegag("../images/knuckle.png", true);
 
     int map[15 * 15] = {
             1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1,

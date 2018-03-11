@@ -1,8 +1,7 @@
 .idea/
 cmake-build-debug/
 CMakeFiles/
-glad/
-include/
+libraries/
 Bomberman
 Bomberman.cbp
 cmake_install.cmake

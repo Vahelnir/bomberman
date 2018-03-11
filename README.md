@@ -57,20 +57,24 @@ Il peut y avoir plusieurs stratégies pour gagner une partie
 ## <a name="install"></a>Installation
 Le programme a besoin de plusieures dépendances pour fonctionner :
  - CMake
- - PkgConfig: Permet de chercher des packages. 
- - GLM: Bibliothèque pour faciliter les calculs vectoriels et matriciels
- - GLFW3: Permet de créer/manager la fenetre ainsi que de récuperer le contexte OpenGL
- - Glad: Permet de charger les fonctions d'OpenGL que l'on va utiliser 
+ - PkgConfig: Permet de chercher des packages. (sous linux)
+ - GLM: Bibliothèque pour faciliter les calculs vectoriels et matriciels. (Télécharger la derniere release 9.8)
+ - GLFW3: Permet de créer/manager la fenetre ainsi que de récuperer le contexte OpenGL. (Télécharger les source sur le github)
+ - Glad: Permet de charger les fonctions d'OpenGL que l'on va utiliser (vous pouvez [télécharger le loader ici](http://glad.dav1d.de/#profile=compatibility&specification=gl&api=gl%3D3.3&api=gles1%3Dnone&api=gles2%3Dnone&api=glsc2%3Dnone&language=c&loader=on))
  - OpenGL: Permet de gerer l'affichage et l'utilisation de la carte graphique.
-Glad doit être extrait à la racine du projet:
+ 
+Architecture des fichiers:
 ```
  Bomberman
- ├── glad
- │    └── include
- │       ├── glad
- │       └── KHR
- ├── src
- │   └── glad.c
+ ├── libraries
+ │   ├── glad // Regarder le lien au dessus
+ │   │   ├── include
+ │   │   │   ├── glad
+ │   │   │   └── KHR
+ │   │   └── src
+ │   │      └── glad.c
+ │   ├── glfw3
+ │   └── glm
  ├── src
  ├── images
  ├── include
