@@ -16,24 +16,35 @@ Game::Game(std::string title, int height, int width) {
 void Game::init() {}
 
 void Game::createWindow() {
+    // On défini un callback pour les eventuelles erreurs
     glfwSetErrorCallback(this->error_callback);
+    // On initialise glfw
     glfwInit();
+    // ON défini la version d'opengl à utiliser
     glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3);
     glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 3);
+    // On défini le profil à charger
     glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
 
+    // On créé la fenetre
     this->window = glfwCreateWindow(this->width, this->height, this->title.c_str(), nullptr, nullptr);
+    // S'il y a une erreur, on l'affiche et on stop le processus
     if (this->window == nullptr) {
         printf("Failed to create the window :c");
         glfwTerminate();
     }
+    // On défini le pointeur à la classe active (pour acceder à cette classe dans les callbacks)
     glfwSetWindowUserPointer(this->window, this);
+    // On défini la fenetre comme celle actuelle
     glfwMakeContextCurrent(this->window);
 
+    // On initialise Glad
     if (!gladLoadGLLoader((GLADloadproc) glfwGetProcAddress)) {
         printf("Failed to initialize GLAD :c");
     }
+    // On défini un callback pour le resize de la fenetre
     glfwSetFramebufferSizeCallback(this->window, this->framebuffer_size_callback);
+    // On active les tests de profondeur
     glEnable(GL_DEPTH_TEST);
     // Transparence
     glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
@@ -56,6 +67,7 @@ void Game::loop() {
     Texture breakable_wall_texture(path_prefix + "images/breakable_wall.jpg");
     Texture player_ninegag(path_prefix + "images/knuckle.png", true);
 
+    // Map qui est pour le moment hardcodée
     int map[15 * 15] = {
             1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1,
             1, 2, 2, 3, 3, 3, 3, 2, 3, 2, 3, 3, 2, 2, 1,
@@ -74,10 +86,13 @@ void Game::loop() {
             1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1
     };
 
+    // On crée le joueur
     Player player(&player_ninegag);
+    // On crée la map
     this->tilemap = new Tilemap(&shader_program, 15, 15, 32, 32);
 
     int i = 0;
+    // On charge chaque tile et on l'ajoute à la map
     for (i = 0; i < this->tilemap->height_in_tile * this->tilemap->width_in_tile; i++) {
         int tile_type = map[i];
         Texture *tile_texture = &wall_texture;
@@ -86,18 +101,19 @@ void Game::loop() {
         this->tilemap->add_tile(i % this->tilemap->width_in_tile, floor(i / this->tilemap->height_in_tile),
                                 new Object(tile_texture), tile_type);
     }
+    // On ajoute le player à la map à la position 1, 1
     this->tilemap->add_player(1, 1, &player);
-    double previousTime = glfwGetTime();
-    int fps = 0;
-
+    // On crée notre projection orthogonale (car on est un jeu en 2D)
     this->projection = glm::ortho(0.0f, (float) this->width, 0.0f, (float) this->height, 0.0f,
                                   100.0f);
+
+    double previousTime = glfwGetTime();
+    int fps = 0;
 
     while (!this->shouldClose()) {
         double currentTime = glfwGetTime();
         fps++;
         if (currentTime - previousTime >= 1.0) {
-            // printf and reset timer
             printf("%f ms/frame\n", 1000.0 / double(fps));
             title += " | Camera -> x = " + std::to_string(this->camera.pos.x) + ", y = " +
                      std::to_string(this->camera.pos.y) +
@@ -106,21 +122,28 @@ void Game::loop() {
             fps = 0;
             previousTime += 1.0;
         }
-
+        // On récupere la taille de la fenetre
         glfwGetWindowSize(this->window, &this->width, &this->height);
+        // On récupere les events
         glfwPollEvents();
+        // Et on process les inputs de l'utilisateur (pour le moment)
         this->process_input(this->window);
 
+        // On update la tilemap et tout son contenu
         this->tilemap->update();
 
+        // On reset l'affichage
         glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
         glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+        // On render la caméra
         glm::mat4 view = this->camera.render();
+        // On render la carte
         this->tilemap->render(this->width, this->height, glm::value_ptr(view), glm::value_ptr(this->projection));
 
         glfwSwapBuffers(this->window);
     }
 
+    // On détruit la map et les objets dedans
     this->tilemap->destroy();
 }
 
