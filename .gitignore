@@ -1,0 +1,10 @@
+.idea/
+cmake-build-debug/
+CMakeFiles/
+glad/
+include/
+Bomberman
+Bomberman.cbp
+cmake_install.cmake
+CMakeCache.txt
+Makefile
