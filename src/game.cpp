@@ -43,13 +43,18 @@ void Game::createWindow() {
 }
 
 void Game::loop() {
+    std::string path_prefix = "";
 
-    Shader shader_program("../shaders/vertex.vert", "../shaders/fragment.frag");
+    #ifdef _WIN32
+    path_prefix = "../";
+    #endif
 
-    Texture ground_texture("../images/ground.jpg");
-    Texture wall_texture("../images/wall.jpg");
-    Texture breakable_wall_texture("../images/breakable_wall.jpg");
-    Texture player_ninegag("../images/knuckle.png", true);
+    Shader shader_program(path_prefix + "shaders/vertex.vert", path_prefix + "shaders/fragment.frag");
+
+    Texture ground_texture(path_prefix + "images/ground.jpg");
+    Texture wall_texture(path_prefix + "images/wall.jpg");
+    Texture breakable_wall_texture(path_prefix + "images/breakable_wall.jpg");
+    Texture player_ninegag(path_prefix + "images/knuckle.png", true);
 
     int map[15 * 15] = {
             1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1,

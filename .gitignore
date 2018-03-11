@@ -4,6 +4,7 @@ CMakeFiles/
 libraries/
 Bomberman
 Bomberman.cbp
+libglad.a
 cmake_install.cmake
 CMakeCache.txt
 Makefile
