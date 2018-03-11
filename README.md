@@ -54,7 +54,7 @@ Il peut y avoir plusieurs stratégies pour gagner une partie
 - Ne rien faire et éviter le combat
 
 
-## <a name="installation"></a>Installation
+## <a name="install"></a>Installation
 Le programme a besoin de plusieures dépendances pour fonctionner :
  - CMake
  - PkgConfig: Permet de chercher des packages. 
@@ -64,15 +64,16 @@ Le programme a besoin de plusieures dépendances pour fonctionner :
  - OpenGL: Permet de gerer l'affichage et l'utilisation de la carte graphique.
 Glad doit être extrait à la racine du projet:
 ```
- - Bomberman
-   - glad
-     - include
-        - glad
-        - KHR
-     - src
-       - glad.c
-   - src
-   - images
-   - include
-   - shaders
+ Bomberman
+ ├── glad
+ │    └── include
+ │       ├── glad
+ │       └── KHR
+ ├── src
+ │   └── glad.c
+ ├── src
+ ├── images
+ ├── include
+ └── shaders
 ```
+
